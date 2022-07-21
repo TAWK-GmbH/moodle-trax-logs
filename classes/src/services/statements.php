@@ -131,6 +131,9 @@ class statements {
             $class = '\\logstore_trax\\src\\statements\\proxy\\statements_post';
         }
 
+        // Next, search in the plugin folder.
+        $class = '\\'.$plugin.'\\xapi\\statements\\'.$name;
+
         // Check if this event is selected.
         if (!$class || !class_exists($class)) {
             $selectedEvents = config::selected_events(get_config('logstore_trax'));
@@ -143,9 +146,6 @@ class statements {
                 $this->logs->log_unselected($event);
                 return;
             }
-
-            // Next, search in the plugin folder.
-            $class = '\\'.$plugin.'\\xapi\\statements\\'.$name;
         }
 
         // Then, search in Trax Logs, plugin subfolder.
